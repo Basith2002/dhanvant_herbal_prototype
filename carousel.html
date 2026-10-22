@@ -1,0 +1,109 @@
+<!-- DHANVANT HERBAL — CAROUSEL COMPONENT (loaded via <div id="carousel"> or <section id="hero">) -->
+<style>
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s;pointer-events:none}
+.slide.on{opacity:1;pointer-events:auto}
+.slide.on .arch{animation:up 1s ease both}
+@keyframes up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+</style>
+
+<section class="leafbg relative h-[80vh] min-h-[540px] overflow-hidden text-white" id="hero">
+  <!-- Slide 1 -->
+  <div class="slide on">
+    <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=900&q=60" alt="" class="md:hidden absolute inset-0 w-full h-full object-cover opacity-25" onerror="this.remove()">
+    <div class="relative max-w-7xl mx-auto px-6 h-full grid md:grid-cols-2 items-center gap-8">
+      <div class="space-y-5 max-w-xl">
+        <span class="inline-block text-[10px] sm:text-xs tracking-[.3em] uppercase border border-gold-400/60 text-gold-400 px-3 py-1 rounded-full">Pure Ayurvedic Wellness</span>
+        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.02]">Nature's Healing,<br><i class="text-gold-400">Beautifully Bottled</i></h1>
+        <p class="text-sm text-leaf-100 font-light max-w-md">Immunity boosters, skincare and teas made from organic Indian herbs.</p>
+        <div class="flex gap-3 pt-2">
+          <a href="shop.html" class="btn btn-y">Shop Now</a>
+          <a href="about.html" class="btn border border-white/40 text-white hover:bg-white hover:text-leaf-900">Our Story</a>
+        </div>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="arch relative w-[320px] lg:w-[400px] aspect-[3/4] rounded-t-full overflow-hidden ph ring-1 ring-gold-400/70 ring-offset-[10px] ring-offset-leaf-900">
+          <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover" onerror="this.remove()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide">
+    <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=900&q=60" alt="" class="md:hidden absolute inset-0 w-full h-full object-cover opacity-25" onerror="this.remove()">
+    <div class="relative max-w-7xl mx-auto px-6 h-full grid md:grid-cols-2 items-center gap-8">
+      <div class="space-y-5 max-w-xl">
+        <span class="inline-block text-[10px] sm:text-xs tracking-[.3em] uppercase border border-gold-400/60 text-gold-400 px-3 py-1 rounded-full">Most Loved</span>
+        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.02]">Ashwagandha, Tulsi<br><i class="text-gold-400">&amp; more favourites</i></h1>
+        <p class="text-sm text-leaf-100 font-light max-w-md">Our best-selling formulas, trusted by 25,000+ families.</p>
+        <div class="flex gap-3 pt-2">
+          <a href="bestsellers.html" class="btn btn-y">View Best Sellers</a>
+          <a href="about.html" class="btn border border-white/40 text-white hover:bg-white hover:text-leaf-900">Our Story</a>
+        </div>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="arch relative w-[320px] lg:w-[400px] aspect-[3/4] rounded-t-full overflow-hidden ph ring-1 ring-gold-400/70 ring-offset-[10px] ring-offset-leaf-900">
+          <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover" onerror="this.remove()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide">
+    <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=900&q=60" alt="" class="md:hidden absolute inset-0 w-full h-full object-cover opacity-25" onerror="this.remove()">
+    <div class="relative max-w-7xl mx-auto px-6 h-full grid md:grid-cols-2 items-center gap-8">
+      <div class="space-y-5 max-w-xl">
+        <span class="inline-block text-[10px] sm:text-xs tracking-[.3em] uppercase border border-gold-400/60 text-gold-400 px-3 py-1 rounded-full">Glow Naturally</span>
+        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.02]">Skin &amp; Hair Rituals<br><i class="text-gold-400">from the herb garden</i></h1>
+        <p class="text-sm text-leaf-100 font-light max-w-md">Kumkumadi, bhringraj and neem — ancient recipes, modern purity.</p>
+        <div class="flex gap-3 pt-2">
+          <a href="shop.html?cat=Skin%20Care" class="btn btn-y">Explore Skincare</a>
+          <a href="about.html" class="btn border border-white/40 text-white hover:bg-white hover:text-leaf-900">Our Story</a>
+        </div>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="arch relative w-[320px] lg:w-[400px] aspect-[3/4] rounded-t-full overflow-hidden ph ring-1 ring-gold-400/70 ring-offset-[10px] ring-offset-leaf-900">
+          <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover" onerror="this.remove()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prev / Next Navigation -->
+  <button onclick="hs(-1)" aria-label="Prev" class="absolute left-3 top-1/2 z-10 w-10 h-10 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+  <button onclick="hs(1)" aria-label="Next" class="absolute right-3 top-1/2 z-10 w-10 h-10 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+
+  <!-- Indicator Dots -->
+  <div id="hd" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+    <button onclick="hg(0)" aria-label="Slide 1" class="h-1.5 rounded-full bg-white/60 transition-all w-[28px]"></button>
+    <button onclick="hg(1)" aria-label="Slide 2" class="h-1.5 rounded-full bg-white/60 transition-all w-[8px]"></button>
+    <button onclick="hg(2)" aria-label="Slide 3" class="h-1.5 rounded-full bg-white/60 transition-all w-[8px]"></button>
+  </div>
+</section>
+
+<script>
+(function(){
+  let si = 0;
+  window.hg = function(n){
+    const d = document.getElementById('hd');
+    const s = document.querySelectorAll('#hero .slide');
+    if(!s.length || !d) return;
+    si = (n + s.length) % s.length;
+    s.forEach((e, i) => e.classList.toggle('on', i === si));
+    [...d.children].forEach((b, i) => b.style.width = i === si ? '28px' : '8px');
+  };
+  window.hs = function(d){
+    window.hg(si + d);
+  };
+  if(window.heroTimer) clearInterval(window.heroTimer);
+  window.heroTimer = setInterval(() => {
+    if(!document.getElementById('hero')) {
+      clearInterval(window.heroTimer);
+      return;
+    }
+    window.hs(1);
+  }, 6500);
+})();
+</script>
+

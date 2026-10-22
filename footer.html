@@ -1,0 +1,56 @@
+<!-- DHANVANT HERBAL — FOOTER COMPONENT -->
+<footer class="bg-leaf-900 text-leaf-200 text-xs mt-16" id="foot-sec">
+    <div class="max-w-7xl mx-auto px-4 pt-12">
+        <div class="rounded-2xl border border-gold-500/30 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4 bg-white/5">
+            <div>
+                <h3 class="font-serif text-2xl text-white">Join the Dhanvant Circle</h3>
+                <p class="mt-1">Wellness tips, early access and 10% off your first order.</p>
+            </div>
+            <form onsubmit="event.preventDefault();toast('Thank you for subscribing 🌿');this.reset()" class="flex w-full md:w-auto gap-2 min-w-0">
+                <input type="email" required placeholder="Your email" class="flex-1 min-w-0 md:w-64 rounded-full px-5 py-3 text-sm text-stone-800 outline-none">
+                <button class="btn btn-y flex-shrink-0 !px-5">Subscribe</button>
+            </form>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="col-span-2 md:col-span-1">
+            <span class="font-serif text-xl text-white tracking-[.2em]">DHANVANT</span>
+            <p class="text-gold-400 tracking-[.55em] text-[9px] mb-3">HERBAL</p>
+            <p class="leading-relaxed">Pure Ayurvedic wellness, delivered to your door.</p>
+            <div class="flex gap-4 text-base mt-4">
+                <i class="fa-brands fa-instagram hover:text-gold-400"></i>
+                <i class="fa-brands fa-facebook hover:text-gold-400"></i>
+                <i class="fa-brands fa-youtube hover:text-gold-400"></i>
+            </div>
+        </div>
+        <div>
+            <h4 class="text-white font-semibold uppercase tracking-widest mb-3">Shop</h4>
+            <ul class="space-y-1.5" id="foot-cats"></ul>
+        </div>
+        <div>
+            <h4 class="text-white font-semibold uppercase tracking-widest mb-3">Company</h4>
+            <ul class="space-y-1.5">
+                <li><a href="about.html" class="hover:text-white">About Us</a></li>
+                <li><a href="favourites.html" class="hover:text-white">Favourites</a></li>
+                <li><a href="cart.html" class="hover:text-white">Shopping Bag</a></li>
+                <li><a href="signin.html" class="hover:text-white">My Account</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-semibold uppercase tracking-widest mb-3">Contact</h4>
+            <p class="leading-loose">care@dhanvantherbal.com<br>+91 98765 43210<br>Coimbatore, Tamil Nadu</p>
+        </div>
+    </div>
+    <div class="border-t border-white/10 py-5 text-center text-[11px]">© 2026 DHANVANT HERBAL. All rights reserved.</div>
+</footer>
+<a href="https://wa.me/919876543210" target="_blank" aria-label="WhatsApp" class="fixed bottom-5 right-5 z-40 w-12 h-12 rounded-full bg-green-500 text-white text-2xl flex items-center justify-center shadow-xl hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>
+<button onclick="scrollTo({top:0})" aria-label="Top" class="fixed bottom-5 left-5 z-40 w-10 h-10 rounded-full bg-leaf-800 text-gold-400 shadow-xl"><i class="fa-solid fa-chevron-up text-xs"></i></button>
+<script>
+(function(){
+    const fc = document.getElementById('foot-cats');
+    if (fc && typeof CATS !== 'undefined') {
+        fc.innerHTML = CATS.map(c => `<li><a href="shop.html?cat=${encodeURIComponent(c)}" class="hover:text-white">${c}</a></li>`).join('');
+    }
+})();
+</script>
+
