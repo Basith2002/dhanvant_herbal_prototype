@@ -8,9 +8,9 @@
     <script>
         tailwind.config = { theme: { extend: { colors: { leaf: { 50: '#f4f8f3', 100: '#e6efe3', 200: '#cfe0c9', 500: '#3f7a4f', 600: '#2d6340', 700: '#1f4d33', 800: '#143d29', 900: '#0c2a1c' }, gold: { 400: '#d9b45a', 500: '#c9a24b', 600: '#a8832f' } }, fontFamily: { serif: ['"Cormorant Garamond"', 'Georgia', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'] } } } };
         document.head.insertAdjacentHTML('beforeend', `<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><style>
-html{scroll-behavior:smooth;scroll-padding-top:90px}body{overflow-x:clip;font-family:'Plus Jakarta Sans',sans-serif;background:#f9fbf7;color:#12261b}h1,h2,h3,.font-serif{font-family:'Cormorant Garamond',serif}
+html{scroll-behavior:smooth;scroll-padding-top:90px}body{overflow-x:clip;font-family:'Plus Jakarta Sans',sans-serif;background:#f9fbf7;color:#12261b}@media(max-width:1023px){body{padding-bottom:64px}}h1,h2,h3,.font-serif{font-family:'Cormorant Garamond',serif}
 .ns::-webkit-scrollbar{display:none}.ns{scrollbar-width:none}.ph{background:linear-gradient(135deg,#cfe0c9,#9fc3a0)}
-.lc2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lc2{display:-webkit-   box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .rv{opacity:0;transform:translateY(26px);transition:all .8s cubic-bezier(.16,1,.3,1)}.rv.in{opacity:1;transform:none}
 @keyframes mq{to{transform:translateX(-50%)}}.mq{display:flex;width:max-content;animation:mq 30s linear infinite}
 .inp{width:100%;border:1.5px solid #dbe7d6;border-radius:12px;padding:12px 16px;font-size:14px;background:#fff;outline:none;transition:.2s}.inp:focus{border-color:#3f7a4f;box-shadow:0 0 0 3px rgba(63,122,79,.12)}
@@ -53,7 +53,7 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}body{overflow-x:clip;font-fa
             const t = document.createElement('div'); t.className = 'bg-leaf-900 text-white text-xs px-5 py-3 rounded-full shadow-2xl'; t.textContent = m; c.appendChild(t); setTimeout(() => t.remove(), 2300);
         }
         function goSignin(next, msg) { localStorage.setItem('dh_next', next || 'index.html'); localStorage.setItem('dh_msg', msg || 'Please sign in to continue.'); location.href = 'signin.html'; }
-        function badges() { const n = cart.reduce((s, i) => s + i.q, 0);[['cc', n], ['wc', wish.length]].forEach(([id, v]) => { const e = $(id); if (e) { e.textContent = v; e.classList.toggle('hidden', !v) } }); }
+        function badges() { const n = cart.reduce((s, i) => s + i.q, 0);[['cc', n], ['wc', wish.length], ['mb-cc', n], ['mb-wc', wish.length]].forEach(([id, v]) => { const e = $(id); if (e) { e.textContent = v; if (id !== 'mb-cc') e.classList.toggle('hidden', !v); } }); }
         function sync() { wr('dh_cart', cart); wr('dh_wish', wish); badges(); window.rerender && rerender(); }
         function qty(id, d) { let c = cart.find(x => x.id === id); if (c) { c.q += d; if (c.q <= 0) cart = cart.filter(x => x.id !== id); } else if (d > 0) { cart.push({ id, q: d }); toast('Added to bag'); } sync(); }
         function fav(id) { const had = wish.includes(id); wish = had ? wish.filter(x => x !== id) : [...wish, id]; toast(had ? 'Removed from favourites' : 'Saved to favourites ♥'); sync(); }
@@ -100,8 +100,7 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
 <div><h4 class="text-white font-semibold uppercase tracking-widest mb-3">Company</h4><ul class="space-y-1.5"><li><a href="about.html" class="hover:text-white">About Us</a></li><li><a href="favourites.html" class="hover:text-white">Favourites</a></li><li><a href="cart.html" class="hover:text-white">Shopping Bag</a></li><li><a href="signin.html" class="hover:text-white">My Account</a></li></ul></div>
 <div><h4 class="text-white font-semibold uppercase tracking-widest mb-3">Contact</h4><p class="leading-loose">care@dhanvantherbal.com<br>+91 98765 43210<br>Coimbatore, Tamil Nadu</p></div></div>
 <div class="border-t border-white/10 py-5 text-center text-[11px]">© 2026 DHANVANT HERBAL. All rights reserved.</div></footer>
-<a href="https://wa.me/919876543210" target="_blank" aria-label="WhatsApp" class="fixed bottom-5 right-5 z-40 w-12 h-12 rounded-full bg-green-500 text-white text-2xl flex items-center justify-center shadow-xl hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>
-<button onclick="scrollTo({top:0})" aria-label="Top" class="fixed bottom-5 left-5 z-40 w-10 h-10 rounded-full bg-leaf-800 text-gold-400 shadow-xl"><i class="fa-solid fa-chevron-up text-xs"></i></button>`;
+<a href="https://wa.me/919876543210" target="_blank" aria-label="WhatsApp" class="fixed bottom-20 lg:bottom-5 right-4 sm:right-5 z-40 w-12 h-12 rounded-full bg-green-500 text-white text-2xl flex items-center justify-center shadow-xl hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>`;
                 reveal();
             });
         }
@@ -110,32 +109,47 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
     </script>
     <title>DHANVANT HERBAL — Pure Ayurvedic Wellness</title>
     <style>
-        .slide {
+        .carousel-slide {
             position: absolute;
             inset: 0;
             opacity: 0;
-            transition: opacity 1s;
-            pointer-events: none
+            visibility: hidden;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
+            pointer-events: none;
         }
-
-        .slide.on {
+        .carousel-slide.active {
             opacity: 1;
-            pointer-events: auto
+            visibility: visible;
+            pointer-events: auto;
+            z-index: 10;
         }
-
-        .slide.on .arch {
-            animation: up 1s ease both
+        .carousel-slide .slide-img {
+            transform: scale(1);
+            transition: transform 7.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
-
-        @keyframes up {
+        .carousel-slide.active .slide-img {
+            transform: scale(1.08);
+        }
+        .carousel-slide.active .anim-badge {
+            animation: heroSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+        }
+        .carousel-slide.active .anim-title {
+            animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+        }
+        .carousel-slide.active .anim-desc {
+            animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
+        }
+        .carousel-slide.active .anim-btn {
+            animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+        }
+        @keyframes heroSlideUp {
             from {
                 opacity: 0;
-                transform: translateY(40px)
+                transform: translateY(28px);
             }
-
             to {
                 opacity: 1;
-                transform: none
+                transform: translateY(0);
             }
         }
     </style>
@@ -153,6 +167,9 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
 
     <!-- BEST SELLERS COMPONENT -->
     <div id="bestsellers" class="contents"></div>
+
+    <!-- SHOP BY VIDEOS COMPONENT -->
+    <div id="videos" class="contents"></div>
 
     <!-- NEW ARRIVALS COMPONENT -->
     <div id="newarrivals" class="contents"></div>
@@ -175,7 +192,103 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
                 t.querySelectorAll('script').forEach(s => s.remove());
                 host.replaceWith(...t.childNodes);
                 codes.forEach(c => { const s = document.createElement('script'); s.textContent = c; document.body.appendChild(s); });
-            }).catch(() => { });
+            }).catch(() => {
+                // Standalone fallback with full-bleed herbal images (no green background)
+                const fallbackHtml = `<section class="relative w-full h-[620px] sm:h-[680px] md:h-[740px] lg:h-[84vh] min-h-[580px] max-h-[840px] overflow-hidden text-white select-none bg-stone-950" id="hero">
+                  <div class="carousel-slide active" data-index="0">
+                    <div class="absolute inset-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=2000&q=85" alt="Herbal herbs" class="slide-img w-full h-full object-cover"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-stone-950/25 md:to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-black/30 sm:hidden"></div>
+                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-full flex flex-col justify-center">
+                      <div class="max-w-xl lg:max-w-2xl space-y-4 sm:space-y-6 pt-6 pb-20 sm:pb-16">
+                        <div class="anim-badge"><span class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-[.25em] uppercase px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-gold-400/50 text-gold-400 shadow-sm">🌿 100% Certified Organic Ayurveda</span></div>
+                        <h1 class="anim-title font-serif text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05]">Pure Herbal Wisdom,<br><span class="italic font-serif text-gold-400">Rooted in Nature</span></h1>
+                        <p class="anim-desc text-sm sm:text-base text-stone-200 font-light leading-relaxed max-w-lg">Hand-harvested botanicals, wild-crafted herbs, and time-honoured Ayurvedic recipes formulated for deep, authentic body vitality.</p>
+                        <div class="anim-btn flex flex-wrap gap-3 sm:gap-4 pt-2"><a href="shop.html" class="btn btn-y !py-3.5 !px-8">Explore Herbs</a><a href="about.html" class="btn border border-white/50 text-white hover:bg-white hover:text-stone-950 !py-3.5 !px-7">Our Heritage</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-slide" data-index="1">
+                    <div class="absolute inset-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=2000&q=85" alt="Herbal tea" class="slide-img w-full h-full object-cover"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-stone-950/25 md:to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-black/30 sm:hidden"></div>
+                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-full flex flex-col justify-center">
+                      <div class="max-w-xl lg:max-w-2xl space-y-4 sm:space-y-6 pt-6 pb-20 sm:pb-16">
+                        <div class="anim-badge"><span class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-[.25em] uppercase px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-gold-400/50 text-gold-400 shadow-sm">✨ Sacred Daily Rituals</span></div>
+                        <h2 class="anim-title font-serif text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05]">Sacred Tulsi &amp; Healing<br><span class="italic font-serif text-gold-400">Herbal Concoctions</span></h2>
+                        <p class="anim-desc text-sm sm:text-base text-stone-200 font-light leading-relaxed max-w-lg">Soothe the senses, strengthen seasonal immunity, and awaken vitality with pure loose-leaf herbal teas.</p>
+                        <div class="anim-btn flex flex-wrap gap-3 sm:gap-4 pt-2"><a href="shop.html?cat=Herbal%20Tea" class="btn btn-y !py-3.5 !px-8">Shop Herbal Teas</a><a href="bestsellers.html" class="btn border border-white/50 text-white hover:bg-white hover:text-stone-950 !py-3.5 !px-7">Best Sellers</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-slide" data-index="2">
+                    <div class="absolute inset-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=2000&q=85" alt="Herbal care" class="slide-img w-full h-full object-cover"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-stone-950/25 md:to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-black/30 sm:hidden"></div>
+                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-full flex flex-col justify-center">
+                      <div class="max-w-xl lg:max-w-2xl space-y-4 sm:space-y-6 pt-6 pb-20 sm:pb-16">
+                        <div class="anim-badge"><span class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-[.25em] uppercase px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-gold-400/50 text-gold-400 shadow-sm">🌸 100% Chemical-Free Radiance</span></div>
+                        <h2 class="anim-title font-serif text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05]">Kumkumadi Saffron &amp;<br><span class="italic font-serif text-gold-400">Forest Elixirs</span></h2>
+                        <p class="anim-desc text-sm sm:text-base text-stone-200 font-light leading-relaxed max-w-lg">Kashmiri saffron, cold-pressed bhringraj, and wild neem for radiant skin and nourished hair.</p>
+                        <div class="anim-btn flex flex-wrap gap-3 sm:gap-4 pt-2"><a href="shop.html?cat=Skin%20Care" class="btn btn-y !py-3.5 !px-8">Discover Skincare</a><a href="shop.html?cat=Hair%20Care" class="btn border border-white/50 text-white hover:bg-white hover:text-stone-950 !py-3.5 !px-7">Hair Care</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-slide" data-index="3">
+                    <div class="absolute inset-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1509358271058-acd22cc93898?auto=format&fit=crop&w=2000&q=85" alt="Raw roots" class="slide-img w-full h-full object-cover"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-stone-950/25 md:to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-black/30 sm:hidden"></div>
+                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-full flex flex-col justify-center">
+                      <div class="max-w-xl lg:max-w-2xl space-y-4 sm:space-y-6 pt-6 pb-20 sm:pb-16">
+                        <div class="anim-badge"><span class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-[.25em] uppercase px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-gold-400/50 text-gold-400 shadow-sm">🍃 Stamina, Sleep &amp; Balance</span></div>
+                        <h2 class="anim-title font-serif text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05]">Restorative Roots &amp;<br><span class="italic font-serif text-gold-400">Golden Vitality</span></h2>
+                        <p class="anim-desc text-sm sm:text-base text-stone-200 font-light leading-relaxed max-w-lg">Certified organic KSM-66 Ashwagandha and bilona ghee to relieve stress and renew daily energy.</p>
+                        <div class="anim-btn flex flex-wrap gap-3 sm:gap-4 pt-2"><a href="bestsellers.html" class="btn btn-y !py-3.5 !px-8">Shop Best Sellers</a><a href="shop.html" class="btn border border-white/50 text-white hover:bg-white hover:text-stone-950 !py-3.5 !px-7">All Products</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button onclick="heroSlide(-1)" aria-label="Previous slide" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-stone-900/50 hover:bg-gold-500 hover:text-stone-950 text-white border border-white/25 hover:border-gold-400 backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-2xl cursor-pointer"><i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i></button>
+                  <button onclick="heroSlide(1)" aria-label="Next slide" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-stone-900/50 hover:bg-gold-500 hover:text-stone-950 text-white border border-white/25 hover:border-gold-400 backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-2xl cursor-pointer"><i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i></button>
+                  <div class="absolute bottom-6 sm:bottom-16 left-6 sm:left-10 lg:left-14 z-20 flex items-center gap-3">
+                    <div id="hero-dots" class="flex items-center gap-2">
+                      <button onclick="heroGoTo(0)" class="h-1.5 rounded-full transition-all duration-500 w-9 bg-gold-400 shadow-[0_0_10px_rgba(201,162,75,0.7)]"></button>
+                      <button onclick="heroGoTo(1)" class="h-1.5 rounded-full transition-all duration-500 w-2.5 bg-white/40"></button>
+                      <button onclick="heroGoTo(2)" class="h-1.5 rounded-full transition-all duration-500 w-2.5 bg-white/40"></button>
+                      <button onclick="heroGoTo(3)" class="h-1.5 rounded-full transition-all duration-500 w-2.5 bg-white/40"></button>
+                    </div>
+                    <div class="text-[10px] sm:text-xs font-mono tracking-widest text-stone-300 bg-stone-900/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10"><span id="hero-num" class="text-white font-bold">01</span> / 04</div>
+                  </div>
+                  <div class="absolute inset-x-0 bottom-0 z-10 bg-stone-950/75 backdrop-blur-md border-t border-white/10 py-3 hidden sm:block">
+                    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between text-xs text-stone-200">
+                      <div class="flex items-center gap-2"><span class="text-gold-400">🌿</span><span><strong class="text-white font-semibold">100% Organic Herbs:</strong> Wildcrafted &amp; Farm Fresh</span></div>
+                      <div class="h-3.5 w-px bg-white/15"></div>
+                      <div class="flex items-center gap-2"><span class="text-gold-400">🧪</span><span><strong class="text-white font-semibold">Ayurvedic Purity:</strong> Lab Tested &amp; Chemical Free</span></div>
+                      <div class="h-3.5 w-px bg-white/15"></div>
+                      <div class="flex items-center gap-2"><span class="text-gold-400">🚚</span><span><strong class="text-white font-semibold">Free Delivery:</strong> On Orders Above ₹499</span></div>
+                    </div>
+                  </div>
+                </section>`;
+                const t = document.createElement('div');
+                t.innerHTML = fallbackHtml;
+                host.replaceWith(...t.childNodes);
+
+                let cur = 0;
+                window.heroGoTo = function(n) {
+                  const s = document.querySelectorAll('#hero .carousel-slide');
+                  const d = document.querySelectorAll('#hero-dots button');
+                  const num = document.getElementById('hero-num');
+                  if (!s.length) return;
+                  cur = (n + s.length) % s.length;
+                  s.forEach((el, i) => el.classList.toggle('active', i === cur));
+                  if (d.length) d.forEach((dot, i) => dot.className = i === cur ? 'h-1.5 rounded-full transition-all duration-500 w-9 bg-gold-400 shadow-[0_0_10px_rgba(201,162,75,0.7)]' : 'h-1.5 rounded-full transition-all duration-500 w-2.5 bg-white/40');
+                  if (num) num.textContent = String(cur + 1).padStart(2, '0');
+                };
+                window.heroSlide = function(d) { window.heroGoTo(cur + d); };
+                window.hg = window.heroGoTo;
+                window.hs = window.heroSlide;
+                if (window.heroTimer) clearInterval(window.heroTimer);
+                window.heroTimer = setInterval(() => window.heroSlide(1), 6000);
+            });
         }
 
         function loadComponent(id, file, onReady) {
@@ -196,9 +309,10 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
         function loadComponentFallback(id, onReady) {
             const host = $(id); if (!host) return;
             const F = {
-                categories: `<section class="max-w-7xl mx-auto px-4 pt-10 rv"><div class="flex items-end justify-between mb-6"><div><p class="text-[11px] tracking-[.35em] uppercase text-gold-600 font-semibold">Shop by Need</p><h2 class="font-serif text-3xl md:text-5xl mt-1">Explore Categories</h2></div><a href="categories.html" class="btn btn-o !py-2.5 !px-5 hidden sm:inline-block">View All</a></div><div id="catgrid" class="flex gap-3 md:gap-4 overflow-x-auto ns snap-x snap-mandatory scroll-smooth pt-3 pb-4 px-1 -mt-3 -mb-4"></div><a href="categories.html" class="btn btn-o mt-6 w-full sm:hidden">View All Categories</a></section>`,
-                bestsellers: `<section class="bg-leaf-50 mt-10 py-10"><div class="max-w-7xl mx-auto px-4 rv"><div class="flex items-end justify-between mb-6 gap-3"><div><p class="text-[11px] tracking-[.35em] uppercase text-gold-600 font-semibold">Most Loved</p><h2 class="font-serif text-3xl md:text-5xl mt-1">Best Sellers</h2></div><a href="bestsellers.html" class="btn btn-o !py-2.5 !px-5">View All</a></div><div id="bsrow" class="flex gap-4 overflow-x-auto ns snap-x snap-mandatory scroll-smooth pt-3 pb-4 px-1 -mt-3 -mb-4"></div></div></section>`,
-                newarrivals: `<section class="max-w-7xl mx-auto px-4 pt-10 rv"><div class="flex items-end justify-between mb-6"><div><p class="text-[11px] tracking-[.35em] uppercase text-gold-600 font-semibold">Fresh In</p><h2 class="font-serif text-3xl md:text-5xl mt-1">New Arrivals</h2></div><a href="newarrivals.html" class="btn btn-o !py-2.5 !px-5">View All</a></div><div id="newgrid" class="flex gap-4 overflow-x-auto ns snap-x snap-mandatory scroll-smooth pt-3 pb-4 px-1 -mt-3 -mb-4"></div></section>`,
+                categories: `<section class="max-w-7xl mx-auto px-4 pt-10 rv"><div class="flex items-end justify-between mb-6 gap-3"><div><p class="text-[11px] tracking-[.35em] uppercase text-gold-600 font-semibold">Shop by Need</p><h2 class="font-serif text-2xl sm:text-3xl md:text-5xl mt-1">Explore Categories</h2></div><a href="categories.html" class="btn btn-o !py-2 !px-4 sm:!py-2.5 sm:!px-5 flex-shrink-0 text-[10px] sm:text-[11px]">View All</a></div><div id="catgrid" class="flex gap-4 sm:gap-6 md:gap-8 overflow-x-auto ns snap-x snap-mandatory scroll-smooth pt-3 pb-6 px-1 justify-start sm:justify-center items-center"></div><div id="cat-dots" class="flex justify-center items-center gap-1.5 mt-2"></div></section>`,
+                bestsellers: `<section class="bg-leaf-50 mt-10 py-10"><div class="max-w-7xl mx-auto px-4 rv"><div class="flex items-end justify-between mb-6 gap-3"><div><p class="text-[11px] tracking-[.35em] uppercase text-gold-600 font-semibold">Most Loved</p><h2 class="font-serif text-3xl md:text-5xl mt-1">Best Sellers</h2></div><a href="bestsellers.html" class="btn btn-o !py-2.5 !px-5">View All</a></div><div id="bsrow" class="flex gap-4 overflow-x-auto ns snap-x snap-mandatory scroll-smooth pt-3 pb-4 px-1 -mt-3 -mb-4"></div><div id="bs-dots" class="flex justify-center items-center gap-1.5 mt-6"></div></div></section>`,
+                videos: `<section class="max-w-7xl mx-auto px-4 pt-12 rv" id="videos-section"><div class="flex items-end justify-between mb-6 gap-3"><div><p class="text-[11px] tracking-[.35em] uppercase text-gold-600 font-semibold">Watch &amp; Shop</p><h2 class="font-serif text-2xl sm:text-3xl md:text-5xl mt-1">Shop By Videos</h2></div><a href="shop.html" class="btn btn-o !py-2 !px-4 sm:!py-2.5 sm:!px-5 flex-shrink-0 text-[10px] sm:text-[11px]">View All</a></div><div id="videorow" class="flex gap-4 sm:gap-5 overflow-x-auto ns snap-x snap-mandatory scroll-smooth pt-2 pb-4 px-1"></div><div id="video-dots" class="flex justify-center items-center gap-1.5 mt-3"></div></section>`,
+                newarrivals: `<section class="max-w-7xl mx-auto px-4 pt-10 rv"><div class="flex items-end justify-between mb-6 gap-3"><div><p class="text-[11px] tracking-[.35em] uppercase text-gold-600 font-semibold">Fresh In</p><h2 class="font-serif text-2xl sm:text-3xl md:text-5xl mt-1">New Arrivals</h2></div><a href="newarrivals.html" class="btn btn-o !py-2 !px-4 sm:!py-2.5 sm:!px-5 flex-shrink-0 text-[10px] sm:text-[11px]">View All</a></div><div id="newgrid" class="flex gap-4 overflow-x-auto ns snap-x snap-mandatory scroll-smooth pt-3 pb-4 px-1 -mt-3 -mb-4"></div><div id="new-dots" class="flex justify-center items-center gap-1.5 mt-6"></div></section>`,
                 products: `<section class="max-w-7xl mx-auto px-4 pt-10 rv"><div class="flex items-end justify-between mb-6"><div><p class="text-[11px] tracking-[.35em] uppercase text-gold-600 font-semibold">The Collection</p><h2 class="font-serif text-3xl md:text-5xl mt-1">Our Products</h2></div><a href="shop.html" class="btn btn-o !py-2.5 !px-5">View All</a></div><div id="allgrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5"></div><div class="text-center mt-8"><a href="shop.html" class="btn btn-g">Shop All Products</a></div></section>`,
                 ritual: `<section class="max-w-7xl mx-auto px-4 pt-10 rv"><div class="leafbg rounded-3xl overflow-hidden grid md:grid-cols-2 items-center text-white"><div class="p-8 md:p-14 space-y-4"><span class="text-[11px] tracking-[.3em] uppercase text-gold-400">Limited Offer</span><h2 class="font-serif text-4xl md:text-5xl font-light leading-tight">Complete Ayurvedic <i class="text-gold-400">Wellness Ritual</i></h2><p class="text-sm text-leaf-100 font-light">Use code <b class="text-gold-400">DHANVANT10</b> at checkout and enjoy 10% off your first order of herbal essentials.</p><a href="shop.html" class="btn btn-y">Shop the Ritual</a></div><div class="h-64 md:h-full min-h-[280px] ph"><img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=1000&q=80" alt="" class="w-full h-full object-cover" onerror="this.remove()"></div></div></section>`
             };
@@ -210,9 +324,182 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
             }
         }
 
+        const CAT_IMGS = {
+            "Immunity": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=500&q=80",
+            "Skin Care": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80",
+            "Hair Care": "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=500&q=80",
+            "Digestive": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=500&q=80",
+            "Herbal Tea": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=500&q=80",
+            "Oils & Ghee": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=500&q=80"
+        };
+
         function renderCategories() {
             const cat = $('catgrid'); if (!cat) return;
-            cat.innerHTML = CATS.map(c => `<a href="shop.html?cat=${encodeURIComponent(c)}" class="flex-shrink-0 w-[150px] sm:w-[185px] snap-start group bg-white border border-leaf-100 hover:border-gold-500 hover:shadow-xl hover:-translate-y-1 rounded-2xl p-5 text-center transition duration-300"><div class="w-14 h-14 mx-auto rounded-full bg-leaf-50 group-hover:bg-leaf-800 group-hover:text-gold-400 text-leaf-700 flex items-center justify-center text-xl transition"><i class="fa-solid ${CI[c]}"></i></div><p class="font-serif text-lg mt-3 leading-tight">${c}</p><p class="text-[10px] text-stone-400 uppercase tracking-widest mt-0.5">${P.filter(p => p.c === c).length} products</p></a>`).join('');
+            cat.innerHTML = CATS.map(c => {
+                const count = P.filter(p => p.c === c).length;
+                const catImg = CAT_IMGS[c] || (P.find(p => p.c === c) ? img(P.find(p => p.c === c), 500) : 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=80');
+                return `<a href="shop.html?cat=${encodeURIComponent(c)}" class="flex-shrink-0 group flex flex-col items-center snap-start w-28 sm:w-36 md:w-44 text-center cursor-pointer transition-transform duration-300 hover:-translate-y-1">
+                    <div class="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full p-1 bg-gradient-to-br from-leaf-200 via-gold-400/40 to-leaf-500/30 group-hover:from-gold-500 group-hover:to-leaf-700 shadow-md group-hover:shadow-xl transition-all duration-500">
+                        <div class="w-full h-full rounded-full overflow-hidden bg-leaf-50">
+                            <img src="${catImg}" alt="${c}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" loading="lazy">
+                        </div>
+                    </div>
+                    <p class="font-serif text-base sm:text-lg font-bold text-stone-900 mt-3 group-hover:text-leaf-800 transition leading-tight">${c}</p>
+                    <span class="text-[11px] text-stone-400 font-medium tracking-wider mt-0.5">${count} Products</span>
+                </a>`;
+            }).join('');
+            setupScrollDots('catgrid', 'cat-dots');
+        }
+
+        const VIDEOS = [
+            {
+                id: 16,
+                tag: "Immunity Boost",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                poster: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                tag: "Pure Radiance",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                poster: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 11,
+                tag: "Bilona Ghee",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+                poster: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 9,
+                tag: "Herbal Infusion",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4",
+                poster: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 5,
+                tag: "Root Vitality",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+                poster: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        function productAddBtn(id) {
+            const q = cart.find(i => i.id === id);
+            if (q) {
+                return `<div class="flex items-center justify-between bg-leaf-50 border border-leaf-200 rounded-full p-1"><button onclick="qty(${id},-1)" class="w-7 h-7 rounded-full bg-white font-bold shadow-sm hover:bg-leaf-100 flex items-center justify-center text-stone-700">−</button><span class="text-xs font-bold text-leaf-700">${q.q} in bag</span><button onclick="qty(${id},1)" class="w-7 h-7 rounded-full bg-leaf-800 text-white font-bold hover:bg-gold-600 flex items-center justify-center">+</button></div>`;
+            }
+            return `<button onclick="qty(${id},1)" class="w-full py-2 rounded-full bg-leaf-800 hover:bg-gold-600 text-white text-[11px] font-bold tracking-widest uppercase transition flex items-center justify-center gap-1.5 shadow-sm"><i class="fa-solid fa-plus text-[9px]"></i>Add</button>`;
+        }
+
+        function renderVideos() {
+            const vr = $('videorow'); if (!vr) return;
+            vr.innerHTML = VIDEOS.map((v, idx) => {
+                const p = P.find(item => item.id === v.id) || P[0];
+                return `<div class="w-[220px] sm:w-[250px] aspect-[9/16] min-h-[410px] flex-shrink-0 snap-start relative rounded-3xl overflow-hidden shadow-lg border border-leaf-100 group bg-stone-900 flex flex-col justify-between">
+                    <video id="vid-${idx}" src="${v.video}" poster="${v.poster}" playsinline loop muted class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105" onclick="togglePlay(${idx})"></video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30 pointer-events-none"></div>
+                    
+                    <div class="relative z-10 p-3 flex justify-between items-center">
+                        <span class="bg-black/50 backdrop-blur-md text-white text-[10px] font-semibold px-2.5 py-1 rounded-full border border-white/20 flex items-center gap-1">
+                            <i class="fa-solid fa-sparkles text-gold-400"></i> ${v.tag}
+                        </span>
+                    </div>
+
+                    <button onclick="togglePlay(${idx})" id="playbtn-${idx}" aria-label="Play video" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-black/40 hover:bg-black/60 text-white border border-white/50 backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-2xl cursor-pointer z-10">
+                        <i class="fa-solid fa-play text-base sm:text-lg ml-0.5"></i>
+                    </button>
+
+                    <!-- Floating product card (Matches Image 2) -->
+                    <div class="relative z-20 m-2.5 bg-white/95 backdrop-blur-md rounded-2xl p-2.5 shadow-xl border border-leaf-100/70">
+                        <div class="flex items-center gap-2 mb-2">
+                            <a href="product.html?id=${p.id}" class="w-11 h-11 rounded-xl overflow-hidden ph flex-shrink-0 border border-leaf-100 block">
+                                <img src="${img(p, 200)}" alt="${p.n}" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between gap-1">
+                                    <a href="product.html?id=${p.id}" class="text-xs font-semibold text-stone-900 truncate hover:text-gold-600 block">${p.n}</a>
+                                    <a href="product.html?id=${p.id}" class="text-[10px] text-stone-400 hover:text-leaf-800 flex-shrink-0" title="View"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                </div>
+                                <p class="text-xs font-bold text-leaf-800 mt-0.5">${money(p.p)}</p>
+                            </div>
+                        </div>
+                        <div id="vid-btn-${p.id}" class="mt-1">
+                            ${productAddBtn(p.id)}
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+            setupScrollDots('videorow', 'video-dots');
+        }
+
+        function togglePlay(idx) {
+            const v = $(`vid-${idx}`);
+            const b = $(`playbtn-${idx}`);
+            if (!v) return;
+            document.querySelectorAll('#videorow video').forEach((other, i) => {
+                if (i !== idx && !other.paused) {
+                    other.pause();
+                    const ob = $(`playbtn-${i}`);
+                    if (ob) ob.innerHTML = '<i class="fa-solid fa-play text-base sm:text-lg ml-0.5"></i>';
+                }
+            });
+            if (v.paused) {
+                v.play().then(() => {
+                    if (b) b.innerHTML = '<i class="fa-solid fa-pause text-base sm:text-lg"></i>';
+                }).catch(() => {});
+            } else {
+                v.pause();
+                if (b) b.innerHTML = '<i class="fa-solid fa-play text-base sm:text-lg ml-0.5"></i>';
+            }
+        }
+
+        function setupScrollDots(scrollElId, dotsElId) {
+            const scroller = $(scrollElId);
+            const dotsContainer = $(dotsElId);
+            if (!scroller || !dotsContainer) return;
+
+            function updateDots() {
+                const items = [...scroller.children];
+                if (!items.length) { dotsContainer.innerHTML = ''; return; }
+                const total = items.length;
+                const scrollLeft = scroller.scrollLeft;
+                const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+                let activeIdx = 0;
+                if (maxScroll > 1) {
+                    const ratio = scrollLeft / maxScroll;
+                    activeIdx = Math.min(total - 1, Math.max(0, Math.round(ratio * (total - 1))));
+                }
+
+                if (dotsContainer.children.length !== total) {
+                    dotsContainer.innerHTML = items.map((_, i) => 
+                        `<button onclick="scrollToItem('${scrollElId}', ${i})" aria-label="Slide ${i+1}" class="h-1.5 rounded-full transition-all duration-300 ${i === activeIdx ? 'w-6 bg-leaf-800' : 'w-1.5 bg-stone-300 hover:bg-stone-400'}"></button>`
+                    ).join('');
+                } else {
+                    [...dotsContainer.children].forEach((dot, i) => {
+                        const isActive = i === activeIdx;
+                        dot.className = `h-1.5 rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-leaf-800' : 'w-1.5 bg-stone-300 hover:bg-stone-400'}`;
+                    });
+                }
+            }
+
+            if (!scroller._hasDotsListener) {
+                scroller.addEventListener('scroll', () => {
+                    if (scroller._scrollTimer) cancelAnimationFrame(scroller._scrollTimer);
+                    scroller._scrollTimer = requestAnimationFrame(updateDots);
+                }, { passive: true });
+                scroller._hasDotsListener = true;
+            }
+            updateDots();
+        }
+
+        function scrollToItem(scrollElId, index) {
+            const scroller = $(scrollElId);
+            if (!scroller) return;
+            const items = [...scroller.children];
+            if (items[index]) {
+                items[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
         }
 
         function rerender() {
@@ -221,6 +508,10 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
             if (bs) bs.innerHTML = P.filter(p => p.s).map(p => card(p, 'w-[210px] sm:w-[255px] flex-shrink-0 snap-start')).join('');
             if (nw) nw.innerHTML = P.filter(p => p.b === 'New').map(p => card(p, 'w-[210px] sm:w-[255px] flex-shrink-0 snap-start')).join('');
             if (all) all.innerHTML = P.map(p => card(p)).join('');
+            VIDEOS.forEach(v => {
+                const b = $(`vid-btn-${v.id}`);
+                if (b) b.innerHTML = productAddBtn(v.id);
+            });
             [bs, nw, cat].forEach((el, n) => {
                 if (el) {
                     el.style.scrollBehavior = 'auto';
@@ -228,6 +519,10 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
                     el.style.scrollBehavior = '';
                 }
             });
+            setupScrollDots('catgrid', 'cat-dots');
+            setupScrollDots('bsrow', 'bs-dots');
+            setupScrollDots('videorow', 'video-dots');
+            setupScrollDots('newgrid', 'new-dots');
         }
 
         function setupBsScroll() {
@@ -250,10 +545,17 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
         loadCarousel();
         loadComponent('categories', 'components/categories.html', () => renderCategories());
         loadComponent('bestsellers', 'components/bestsellers.html', () => { rerender(); setupBsScroll(); });
+        loadComponent('videos', 'components/videos.html', () => renderVideos());
         loadComponent('newarrivals', 'components/newarrivals.html', () => rerender());
         loadComponent('products', 'components/products.html', () => rerender());
         loadComponent('ritual', 'components/ritual.html', () => reveal());
         chrome();
+        window.addEventListener('resize', () => {
+            setupScrollDots('catgrid', 'cat-dots');
+            setupScrollDots('bsrow', 'bs-dots');
+            setupScrollDots('videorow', 'video-dots');
+            setupScrollDots('newgrid', 'new-dots');
+        });
     </script>
 </body>
 
