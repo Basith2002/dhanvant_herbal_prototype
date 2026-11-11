@@ -1,84 +1,130 @@
-<!-- DHANVANT HERBAL — CAROUSEL COMPONENT (loaded via <div id="carousel"> or <section id="hero">) -->
+<!-- DHANVANT HERBAL — CLEAN BANNER CAROUSEL COMPONENT -->
 <style>
-.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s;pointer-events:none}
-.slide.on{opacity:1;pointer-events:auto}
-.slide.on .arch{animation:up 1s ease both}
-@keyframes up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+#hero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+@media (min-width: 640px) {
+  #hero {
+    aspect-ratio: 2 / 1;
+  }
+}
+@media (min-width: 768px) {
+  #hero {
+    aspect-ratio: 2.35 / 1;
+    max-height: 520px;
+  }
+}
+
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+  pointer-events: none;
+}
+.carousel-slide.active,
+.carousel-slide.on {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 10;
+}
+/* Pure Zoom Out: Starts gently enlarged and smoothly zooms out to natural scale */
+.carousel-slide .slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+  will-change: transform;
+}
+.carousel-slide.active .slide-img,
+.carousel-slide.on .slide-img {
+  animation: heroZoomOut 6.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes heroZoomOut {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1.0);
+  }
+}
 </style>
 
-<section class="leafbg relative h-[80vh] min-h-[540px] overflow-hidden text-white" id="hero">
-  <!-- Slide 1 -->
-  <div class="slide on">
-    <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=900&q=60" alt="" class="md:hidden absolute inset-0 w-full h-full object-cover opacity-25" onerror="this.remove()">
-    <div class="relative max-w-7xl mx-auto px-6 h-full grid md:grid-cols-2 items-center gap-8">
-      <div class="space-y-5 max-w-xl">
-        <span class="inline-block text-[10px] sm:text-xs tracking-[.3em] uppercase border border-gold-400/60 text-gold-400 px-3 py-1 rounded-full">Pure Ayurvedic Wellness</span>
-        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.02]">Nature's Healing,<br><i class="text-gold-400">Beautifully Bottled</i></h1>
-        <p class="text-sm text-leaf-100 font-light max-w-md">Immunity boosters, skincare and teas made from organic Indian herbs.</p>
-        <div class="flex gap-3 pt-2">
-          <a href="shop.html" class="btn btn-y">Shop Now</a>
-          <a href="about.html" class="btn border border-white/40 text-white hover:bg-white hover:text-leaf-900">Our Story</a>
-        </div>
+<section class="relative overflow-hidden text-white select-none bg-stone-950" id="hero">
+  <!-- Slide 1: Green Tea -->
+  <div class="carousel-slide slide active on" data-index="0">
+    <a href="shop.html?cat=Herbal%20Tea" class="block w-full h-full relative overflow-hidden" aria-label="Shop Green Tea">
+      <div class="absolute inset-0 overflow-hidden">
+        <img src="images/banner1.jpg" alt="Pure Herbal Green Tea" class="slide-img">
       </div>
-      <div class="hidden md:flex justify-center">
-        <div class="arch relative w-[320px] lg:w-[400px] aspect-[3/4] rounded-t-full overflow-hidden ph ring-1 ring-gold-400/70 ring-offset-[10px] ring-offset-leaf-900">
-          <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover" onerror="this.remove()">
-        </div>
+      <div class="absolute bottom-3 sm:bottom-6 left-3 sm:left-8 z-10">
+        <span class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-gold-500 hover:bg-gold-400 text-stone-950 text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-lg shadow-black/50 hover:scale-105 active:scale-95">
+          <span>Shop Now</span>
+          <i class="fa-solid fa-arrow-right text-[8px] sm:text-[10px]"></i>
+        </span>
       </div>
-    </div>
+    </a>
   </div>
 
-  <!-- Slide 2 -->
-  <div class="slide">
-    <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=900&q=60" alt="" class="md:hidden absolute inset-0 w-full h-full object-cover opacity-25" onerror="this.remove()">
-    <div class="relative max-w-7xl mx-auto px-6 h-full grid md:grid-cols-2 items-center gap-8">
-      <div class="space-y-5 max-w-xl">
-        <span class="inline-block text-[10px] sm:text-xs tracking-[.3em] uppercase border border-gold-400/60 text-gold-400 px-3 py-1 rounded-full">Most Loved</span>
-        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.02]">Ashwagandha, Tulsi<br><i class="text-gold-400">&amp; more favourites</i></h1>
-        <p class="text-sm text-leaf-100 font-light max-w-md">Our best-selling formulas, trusted by 25,000+ families.</p>
-        <div class="flex gap-3 pt-2">
-          <a href="bestsellers.html" class="btn btn-y">View Best Sellers</a>
-          <a href="about.html" class="btn border border-white/40 text-white hover:bg-white hover:text-leaf-900">Our Story</a>
-        </div>
+  <!-- Slide 2: Organic Skincare -->
+  <div class="carousel-slide slide" data-index="1">
+    <a href="shop.html?cat=Skin%20Care" class="block w-full h-full relative overflow-hidden" aria-label="Shop Organic Skincare">
+      <div class="absolute inset-0 overflow-hidden">
+        <img src="images/banner2.jpg" alt="Organic Herbal Skincare" class="slide-img">
       </div>
-      <div class="hidden md:flex justify-center">
-        <div class="arch relative w-[320px] lg:w-[400px] aspect-[3/4] rounded-t-full overflow-hidden ph ring-1 ring-gold-400/70 ring-offset-[10px] ring-offset-leaf-900">
-          <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover" onerror="this.remove()">
-        </div>
+      <div class="absolute bottom-3 sm:bottom-6 left-3 sm:left-8 z-10">
+        <span class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-gold-500 hover:bg-gold-400 text-stone-950 text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-lg shadow-black/50 hover:scale-105 active:scale-95">
+          <span>Shop Now</span>
+          <i class="fa-solid fa-arrow-right text-[8px] sm:text-[10px]"></i>
+        </span>
       </div>
-    </div>
+    </a>
   </div>
 
-  <!-- Slide 3 -->
-  <div class="slide">
-    <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=900&q=60" alt="" class="md:hidden absolute inset-0 w-full h-full object-cover opacity-25" onerror="this.remove()">
-    <div class="relative max-w-7xl mx-auto px-6 h-full grid md:grid-cols-2 items-center gap-8">
-      <div class="space-y-5 max-w-xl">
-        <span class="inline-block text-[10px] sm:text-xs tracking-[.3em] uppercase border border-gold-400/60 text-gold-400 px-3 py-1 rounded-full">Glow Naturally</span>
-        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.02]">Skin &amp; Hair Rituals<br><i class="text-gold-400">from the herb garden</i></h1>
-        <p class="text-sm text-leaf-100 font-light max-w-md">Kumkumadi, bhringraj and neem — ancient recipes, modern purity.</p>
-        <div class="flex gap-3 pt-2">
-          <a href="shop.html?cat=Skin%20Care" class="btn btn-y">Explore Skincare</a>
-          <a href="about.html" class="btn border border-white/40 text-white hover:bg-white hover:text-leaf-900">Our Story</a>
-        </div>
+  <!-- Slide 3: 11.11 Special Sale -->
+  <div class="carousel-slide slide" data-index="2">
+    <a href="shop.html" class="block w-full h-full relative overflow-hidden" aria-label="Shop 11.11 Sale">
+      <div class="absolute inset-0 overflow-hidden">
+        <img src="images/banner3.jpg" alt="Natural Skin and Hair Care Sale" class="slide-img">
       </div>
-      <div class="hidden md:flex justify-center">
-        <div class="arch relative w-[320px] lg:w-[400px] aspect-[3/4] rounded-t-full overflow-hidden ph ring-1 ring-gold-400/70 ring-offset-[10px] ring-offset-leaf-900">
-          <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover" onerror="this.remove()">
-        </div>
-      </div>
-    </div>
+    </a>
   </div>
 
-  <!-- Prev / Next Navigation -->
-  <button onclick="hs(-1)" aria-label="Prev" class="absolute left-3 top-1/2 z-10 w-10 h-10 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur"><i class="fa-solid fa-chevron-left text-xs"></i></button>
-  <button onclick="hs(1)" aria-label="Next" class="absolute right-3 top-1/2 z-10 w-10 h-10 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+  <!-- Slide 4: Ayurvedic Spa & Herbal Mortar -->
+  <div class="carousel-slide slide" data-index="3">
+    <a href="shop.html" class="block w-full h-full relative overflow-hidden" aria-label="Shop Ayurvedic Essentials">
+      <div class="absolute inset-0 overflow-hidden">
+        <img src="images/banner4.jpg" alt="Ayurvedic Wellness and Healing Herbs" class="slide-img">
+      </div>
+      <div class="absolute bottom-3 sm:bottom-6 left-3 sm:left-8 z-10">
+        <span class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-gold-500 hover:bg-gold-400 text-stone-950 text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-lg shadow-black/50 hover:scale-105 active:scale-95">
+          <span>Shop Now</span>
+          <i class="fa-solid fa-arrow-right text-[8px] sm:text-[10px]"></i>
+        </span>
+      </div>
+    </a>
+  </div>
 
-  <!-- Indicator Dots -->
-  <div id="hd" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-    <button onclick="hg(0)" aria-label="Slide 1" class="h-1.5 rounded-full bg-white/60 transition-all w-[28px]"></button>
-    <button onclick="hg(1)" aria-label="Slide 2" class="h-1.5 rounded-full bg-white/60 transition-all w-[8px]"></button>
-    <button onclick="hg(2)" aria-label="Slide 3" class="h-1.5 rounded-full bg-white/60 transition-all w-[8px]"></button>
+  <!-- Navigation Arrows -->
+  <button onclick="window.hs(-1)" aria-label="Previous slide" class="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-stone-950/40 hover:bg-gold-500 hover:text-stone-950 text-white/90 border border-white/20 hover:border-gold-400 backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-xl cursor-pointer">
+    <i class="fa-solid fa-chevron-left text-[9px] sm:text-xs"></i>
+  </button>
+  <button onclick="window.hs(1)" aria-label="Next slide" class="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-stone-950/40 hover:bg-gold-500 hover:text-stone-950 text-white/90 border border-white/20 hover:border-gold-400 backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-xl cursor-pointer">
+    <i class="fa-solid fa-chevron-right text-[9px] sm:text-xs"></i>
+  </button>
+
+  <!-- Clean Indicator Dots (Centered at bottom) -->
+  <div class="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2">
+    <div id="hd" class="flex items-center gap-1.5 sm:gap-2 bg-stone-950/40 backdrop-blur-md px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full border border-white/10">
+      <button onclick="window.hg(0)" aria-label="Slide 1" class="h-1 rounded-full transition-all duration-500 w-6 sm:w-8 bg-gold-400 shadow-[0_0_10px_rgba(201,162,75,0.7)]"></button>
+      <button onclick="window.hg(1)" aria-label="Slide 2" class="h-1 rounded-full transition-all duration-500 w-2 sm:w-2.5 bg-white/40 hover:bg-white/70"></button>
+      <button onclick="window.hg(2)" aria-label="Slide 3" class="h-1 rounded-full transition-all duration-500 w-2 sm:w-2.5 bg-white/40 hover:bg-white/70"></button>
+      <button onclick="window.hg(3)" aria-label="Slide 4" class="h-1 rounded-full transition-all duration-500 w-2 sm:w-2.5 bg-white/40 hover:bg-white/70"></button>
+    </div>
   </div>
 </section>
 
@@ -87,15 +133,27 @@
   let si = 0;
   window.hg = function(n){
     const d = document.getElementById('hd');
-    const s = document.querySelectorAll('#hero .slide');
-    if(!s.length || !d) return;
+    const s = document.querySelectorAll('#hero .carousel-slide');
+    if(!s.length) return;
     si = (n + s.length) % s.length;
-    s.forEach((e, i) => e.classList.toggle('on', i === si));
-    [...d.children].forEach((b, i) => b.style.width = i === si ? '28px' : '8px');
+    s.forEach((e, i) => {
+      e.classList.toggle('active', i === si);
+      e.classList.toggle('on', i === si);
+    });
+    if(d && d.children.length) {
+      [...d.children].forEach((b, i) => {
+        b.className = i === si
+          ? 'h-1 rounded-full transition-all duration-500 w-6 sm:w-8 bg-gold-400 shadow-[0_0_10px_rgba(201,162,75,0.7)]'
+          : 'h-1 rounded-full transition-all duration-500 w-2 sm:w-2.5 bg-white/40 hover:bg-white/70';
+      });
+    }
   };
   window.hs = function(d){
     window.hg(si + d);
   };
+  window.heroGoTo = window.hg;
+  window.heroSlide = window.hs;
+
   if(window.heroTimer) clearInterval(window.heroTimer);
   window.heroTimer = setInterval(() => {
     if(!document.getElementById('hero')) {
@@ -103,7 +161,6 @@
       return;
     }
     window.hs(1);
-  }, 6500);
+  }, 6000);
 })();
 </script>
-

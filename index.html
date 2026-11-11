@@ -124,11 +124,22 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
             z-index: 10;
         }
         .carousel-slide .slide-img {
-            transform: scale(1);
-            transition: transform 7.5s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.15);
+            will-change: transform;
         }
         .carousel-slide.active .slide-img {
-            transform: scale(1.08);
+            animation: heroZoomOut 7.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes heroZoomOut {
+            0% {
+                transform: scale(1.15);
+            }
+            100% {
+                transform: scale(1.0);
+            }
         }
         .carousel-slide.active .anim-badge {
             animation: heroSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
@@ -194,77 +205,38 @@ ${q ? `<div class="mt-2 flex items-center justify-between bg-leaf-50 border bord
                 codes.forEach(c => { const s = document.createElement('script'); s.textContent = c; document.body.appendChild(s); });
             }).catch(() => {
                 // Standalone fallback with full-bleed herbal images (no green background)
-                const fallbackHtml = `<section class="relative w-full h-[620px] sm:h-[680px] md:h-[740px] lg:h-[84vh] min-h-[580px] max-h-[840px] overflow-hidden text-white select-none bg-stone-950" id="hero">
+                const fallbackHtml = `<section class="relative overflow-hidden text-white select-none bg-stone-950" id="hero" style="width:100%;aspect-ratio:16/9">
                   <div class="carousel-slide active" data-index="0">
-                    <div class="absolute inset-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=2000&q=85" alt="Herbal herbs" class="slide-img w-full h-full object-cover"></div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-stone-950/25 md:to-transparent"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-black/30 sm:hidden"></div>
-                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-full flex flex-col justify-center">
-                      <div class="max-w-xl lg:max-w-2xl space-y-4 sm:space-y-6 pt-6 pb-20 sm:pb-16">
-                        <div class="anim-badge"><span class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-[.25em] uppercase px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-gold-400/50 text-gold-400 shadow-sm">🌿 100% Certified Organic Ayurveda</span></div>
-                        <h1 class="anim-title font-serif text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05]">Pure Herbal Wisdom,<br><span class="italic font-serif text-gold-400">Rooted in Nature</span></h1>
-                        <p class="anim-desc text-sm sm:text-base text-stone-200 font-light leading-relaxed max-w-lg">Hand-harvested botanicals, wild-crafted herbs, and time-honoured Ayurvedic recipes formulated for deep, authentic body vitality.</p>
-                        <div class="anim-btn flex flex-wrap gap-3 sm:gap-4 pt-2"><a href="shop.html" class="btn btn-y !py-3.5 !px-8">Explore Herbs</a><a href="about.html" class="btn border border-white/50 text-white hover:bg-white hover:text-stone-950 !py-3.5 !px-7">Our Heritage</a></div>
-                      </div>
-                    </div>
+                    <a href="shop.html?cat=Herbal%20Tea" class="block w-full h-full relative overflow-hidden" aria-label="Shop Green Tea">
+                      <div class="absolute inset-0 overflow-hidden"><img src="images/banner1.jpg" alt="Pure Herbal Green Tea" class="slide-img"></div>
+                      <div class="absolute bottom-3 sm:bottom-6 left-3 sm:left-8 z-10"><span class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-gold-500 hover:bg-gold-400 text-stone-950 text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-lg shadow-black/50 hover:scale-105 active:scale-95"><span>Shop Now</span><i class="fa-solid fa-arrow-right text-[8px] sm:text-[10px]"></i></span></div>
+                    </a>
                   </div>
                   <div class="carousel-slide" data-index="1">
-                    <div class="absolute inset-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=2000&q=85" alt="Herbal tea" class="slide-img w-full h-full object-cover"></div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-stone-950/25 md:to-transparent"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-black/30 sm:hidden"></div>
-                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-full flex flex-col justify-center">
-                      <div class="max-w-xl lg:max-w-2xl space-y-4 sm:space-y-6 pt-6 pb-20 sm:pb-16">
-                        <div class="anim-badge"><span class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-[.25em] uppercase px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-gold-400/50 text-gold-400 shadow-sm">✨ Sacred Daily Rituals</span></div>
-                        <h2 class="anim-title font-serif text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05]">Sacred Tulsi &amp; Healing<br><span class="italic font-serif text-gold-400">Herbal Concoctions</span></h2>
-                        <p class="anim-desc text-sm sm:text-base text-stone-200 font-light leading-relaxed max-w-lg">Soothe the senses, strengthen seasonal immunity, and awaken vitality with pure loose-leaf herbal teas.</p>
-                        <div class="anim-btn flex flex-wrap gap-3 sm:gap-4 pt-2"><a href="shop.html?cat=Herbal%20Tea" class="btn btn-y !py-3.5 !px-8">Shop Herbal Teas</a><a href="bestsellers.html" class="btn border border-white/50 text-white hover:bg-white hover:text-stone-950 !py-3.5 !px-7">Best Sellers</a></div>
-                      </div>
-                    </div>
+                    <a href="shop.html?cat=Skin%20Care" class="block w-full h-full relative overflow-hidden" aria-label="Shop Organic Skincare">
+                      <div class="absolute inset-0 overflow-hidden"><img src="images/banner2.jpg" alt="Organic Herbal Skincare" class="slide-img"></div>
+                      <div class="absolute bottom-3 sm:bottom-6 left-3 sm:left-8 z-10"><span class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-gold-500 hover:bg-gold-400 text-stone-950 text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-lg shadow-black/50 hover:scale-105 active:scale-95"><span>Shop Now</span><i class="fa-solid fa-arrow-right text-[8px] sm:text-[10px]"></i></span></div>
+                    </a>
                   </div>
                   <div class="carousel-slide" data-index="2">
-                    <div class="absolute inset-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=2000&q=85" alt="Herbal care" class="slide-img w-full h-full object-cover"></div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-stone-950/25 md:to-transparent"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-black/30 sm:hidden"></div>
-                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-full flex flex-col justify-center">
-                      <div class="max-w-xl lg:max-w-2xl space-y-4 sm:space-y-6 pt-6 pb-20 sm:pb-16">
-                        <div class="anim-badge"><span class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-[.25em] uppercase px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-gold-400/50 text-gold-400 shadow-sm">🌸 100% Chemical-Free Radiance</span></div>
-                        <h2 class="anim-title font-serif text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05]">Kumkumadi Saffron &amp;<br><span class="italic font-serif text-gold-400">Forest Elixirs</span></h2>
-                        <p class="anim-desc text-sm sm:text-base text-stone-200 font-light leading-relaxed max-w-lg">Kashmiri saffron, cold-pressed bhringraj, and wild neem for radiant skin and nourished hair.</p>
-                        <div class="anim-btn flex flex-wrap gap-3 sm:gap-4 pt-2"><a href="shop.html?cat=Skin%20Care" class="btn btn-y !py-3.5 !px-8">Discover Skincare</a><a href="shop.html?cat=Hair%20Care" class="btn border border-white/50 text-white hover:bg-white hover:text-stone-950 !py-3.5 !px-7">Hair Care</a></div>
-                      </div>
-                    </div>
+                    <a href="shop.html" class="block w-full h-full relative overflow-hidden" aria-label="Shop 11.11 Sale">
+                      <div class="absolute inset-0 overflow-hidden"><img src="images/banner3.jpg" alt="Natural Skin and Hair Care Sale" class="slide-img"></div>
+                    </a>
                   </div>
                   <div class="carousel-slide" data-index="3">
-                    <div class="absolute inset-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1509358271058-acd22cc93898?auto=format&fit=crop&w=2000&q=85" alt="Raw roots" class="slide-img w-full h-full object-cover"></div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-stone-950/25 md:to-transparent"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-black/30 sm:hidden"></div>
-                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-full flex flex-col justify-center">
-                      <div class="max-w-xl lg:max-w-2xl space-y-4 sm:space-y-6 pt-6 pb-20 sm:pb-16">
-                        <div class="anim-badge"><span class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-[.25em] uppercase px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-gold-400/50 text-gold-400 shadow-sm">🍃 Stamina, Sleep &amp; Balance</span></div>
-                        <h2 class="anim-title font-serif text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05]">Restorative Roots &amp;<br><span class="italic font-serif text-gold-400">Golden Vitality</span></h2>
-                        <p class="anim-desc text-sm sm:text-base text-stone-200 font-light leading-relaxed max-w-lg">Certified organic KSM-66 Ashwagandha and bilona ghee to relieve stress and renew daily energy.</p>
-                        <div class="anim-btn flex flex-wrap gap-3 sm:gap-4 pt-2"><a href="bestsellers.html" class="btn btn-y !py-3.5 !px-8">Shop Best Sellers</a><a href="shop.html" class="btn border border-white/50 text-white hover:bg-white hover:text-stone-950 !py-3.5 !px-7">All Products</a></div>
-                      </div>
-                    </div>
+                    <a href="shop.html" class="block w-full h-full relative overflow-hidden" aria-label="Shop Ayurvedic Essentials">
+                      <div class="absolute inset-0 overflow-hidden"><img src="images/banner4.jpg" alt="Ayurvedic Wellness and Healing Herbs" class="slide-img"></div>
+                      <div class="absolute bottom-3 sm:bottom-6 left-3 sm:left-8 z-10"><span class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-gold-500 hover:bg-gold-400 text-stone-950 text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-lg shadow-black/50 hover:scale-105 active:scale-95"><span>Shop Now</span><i class="fa-solid fa-arrow-right text-[8px] sm:text-[10px]"></i></span></div>
+                    </a>
                   </div>
-                  <button onclick="heroSlide(-1)" aria-label="Previous slide" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-stone-900/50 hover:bg-gold-500 hover:text-stone-950 text-white border border-white/25 hover:border-gold-400 backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-2xl cursor-pointer"><i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i></button>
-                  <button onclick="heroSlide(1)" aria-label="Next slide" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-stone-900/50 hover:bg-gold-500 hover:text-stone-950 text-white border border-white/25 hover:border-gold-400 backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-2xl cursor-pointer"><i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i></button>
-                  <div class="absolute bottom-6 sm:bottom-16 left-6 sm:left-10 lg:left-14 z-20 flex items-center gap-3">
-                    <div id="hero-dots" class="flex items-center gap-2">
-                      <button onclick="heroGoTo(0)" class="h-1.5 rounded-full transition-all duration-500 w-9 bg-gold-400 shadow-[0_0_10px_rgba(201,162,75,0.7)]"></button>
-                      <button onclick="heroGoTo(1)" class="h-1.5 rounded-full transition-all duration-500 w-2.5 bg-white/40"></button>
-                      <button onclick="heroGoTo(2)" class="h-1.5 rounded-full transition-all duration-500 w-2.5 bg-white/40"></button>
-                      <button onclick="heroGoTo(3)" class="h-1.5 rounded-full transition-all duration-500 w-2.5 bg-white/40"></button>
-                    </div>
-                    <div class="text-[10px] sm:text-xs font-mono tracking-widest text-stone-300 bg-stone-900/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10"><span id="hero-num" class="text-white font-bold">01</span> / 04</div>
-                  </div>
-                  <div class="absolute inset-x-0 bottom-0 z-10 bg-stone-950/75 backdrop-blur-md border-t border-white/10 py-3 hidden sm:block">
-                    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between text-xs text-stone-200">
-                      <div class="flex items-center gap-2"><span class="text-gold-400">🌿</span><span><strong class="text-white font-semibold">100% Organic Herbs:</strong> Wildcrafted &amp; Farm Fresh</span></div>
-                      <div class="h-3.5 w-px bg-white/15"></div>
-                      <div class="flex items-center gap-2"><span class="text-gold-400">🧪</span><span><strong class="text-white font-semibold">Ayurvedic Purity:</strong> Lab Tested &amp; Chemical Free</span></div>
-                      <div class="h-3.5 w-px bg-white/15"></div>
-                      <div class="flex items-center gap-2"><span class="text-gold-400">🚚</span><span><strong class="text-white font-semibold">Free Delivery:</strong> On Orders Above ₹499</span></div>
+                  <button onclick="heroSlide(-1)" aria-label="Previous slide" class="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-stone-950/40 hover:bg-gold-500 hover:text-stone-950 text-white/90 border border-white/20 hover:border-gold-400 backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-xl cursor-pointer"><i class="fa-solid fa-chevron-left text-[9px] sm:text-xs"></i></button>
+                  <button onclick="heroSlide(1)" aria-label="Next slide" class="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-stone-950/40 hover:bg-gold-500 hover:text-stone-950 text-white/90 border border-white/20 hover:border-gold-400 backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-xl cursor-pointer"><i class="fa-solid fa-chevron-right text-[9px] sm:text-xs"></i></button>
+                  <div class="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2">
+                    <div id="hero-dots" class="flex items-center gap-1.5 sm:gap-2 bg-stone-950/40 backdrop-blur-md px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full border border-white/10">
+                      <button onclick="heroGoTo(0)" class="h-1 rounded-full transition-all duration-500 w-6 sm:w-8 bg-gold-400 shadow-[0_0_10px_rgba(201,162,75,0.7)]"></button>
+                      <button onclick="heroGoTo(1)" class="h-1 rounded-full transition-all duration-500 w-2 sm:w-2.5 bg-white/40 hover:bg-white/70"></button>
+                      <button onclick="heroGoTo(2)" class="h-1 rounded-full transition-all duration-500 w-2 sm:w-2.5 bg-white/40 hover:bg-white/70"></button>
+                      <button onclick="heroGoTo(3)" class="h-1 rounded-full transition-all duration-500 w-2 sm:w-2.5 bg-white/40 hover:bg-white/70"></button>
                     </div>
                   </div>
                 </section>`;
